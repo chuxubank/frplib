@@ -33,6 +33,11 @@ jobs:
         with:
           path: patches
           
+      - name: Config git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          
       - name: Apply patch
         run: git am patches/frpc-gomobile.patch
 
