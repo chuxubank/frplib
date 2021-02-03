@@ -50,4 +50,4 @@ jobs:
         run: go get golang.org/x/mobile/cmd/gomobile && gomobile init
       
       - name: Build
-        run: gomobile bind -target=android ./cmd/frpc
+        run: gomobile bind -v -target=android ./cmd/frpc && ls
