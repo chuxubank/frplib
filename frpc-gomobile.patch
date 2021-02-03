@@ -1,19 +1,23 @@
-From bf281c1329f5aa3a57832e521b8274c477b98009 Mon Sep 17 00:00:00 2001
+From 4160ede0ca21d8b4e87d468a81d721d7ed41fd30 Mon Sep 17 00:00:00 2001
 From: JerryChu <jchu@i-zhiyan.com>
 Date: Wed, 3 Feb 2021 12:30:07 +0800
 Subject: [PATCH] Patch for gomobile
 
 ---
- cmd/frpc/main.go     | 9 ++-------
- cmd/frpc/sub/root.go | 4 ++--
- 2 files changed, 4 insertions(+), 9 deletions(-)
+ cmd/frpc/main.go     | 11 +++--------
+ cmd/frpc/sub/root.go |  4 ++--
+ 2 files changed, 5 insertions(+), 10 deletions(-)
 
 diff --git a/cmd/frpc/main.go b/cmd/frpc/main.go
-index 443c110..1d653c7 100644
+index 443c110..cdc66b5 100644
 --- a/cmd/frpc/main.go
 +++ b/cmd/frpc/main.go
-@@ -15,18 +15,13 @@
- package main
+@@ -12,21 +12,16 @@
+ // See the License for the specific language governing permissions and
+ // limitations under the License.
+ 
+-package main
++package frpclib
  
  import (
 -	"math/rand"
