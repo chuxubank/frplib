@@ -41,6 +41,13 @@ jobs:
       - name: Apply patch
         run: git am patches/frpc-gomobile.patch
 
+      - uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      
       - name: Setup Go environment
         uses: actions/setup-go@v2
         with:
@@ -50,4 +57,13 @@ jobs:
         run: go get golang.org/x/mobile/cmd/gomobile && gomobile init
       
       - name: Build
-        run: gomobile bind -v -target=android ./cmd/frpc && ls
+        run: |
+          mkdir -p build && cd build
+          gomobile bind -v -target=android ./cmd/frpc
+          ls
+          cd -
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: frpclib
+          path: ./build
