@@ -1,0 +1,60 @@
+From bf281c1329f5aa3a57832e521b8274c477b98009 Mon Sep 17 00:00:00 2001
+From: JerryChu <jchu@i-zhiyan.com>
+Date: Wed, 3 Feb 2021 12:30:07 +0800
+Subject: [PATCH] Patch for gomobile
+
+---
+ cmd/frpc/main.go     | 9 ++-------
+ cmd/frpc/sub/root.go | 4 ++--
+ 2 files changed, 4 insertions(+), 9 deletions(-)
+
+diff --git a/cmd/frpc/main.go b/cmd/frpc/main.go
+index 443c110..1d653c7 100644
+--- a/cmd/frpc/main.go
++++ b/cmd/frpc/main.go
+@@ -15,18 +15,13 @@
+ package main
+ 
+ import (
+-	"math/rand"
+-	"time"
+-
+-	_ "github.com/fatedier/frp/assets/frpc/statik"
+ 	"github.com/fatedier/frp/cmd/frpc/sub"
+ 
+ 	"github.com/fatedier/golib/crypto"
+ )
+ 
+-func main() {
++func Run(cfgFile string) {
+ 	crypto.DefaultSalt = "frp"
+-	rand.Seed(time.Now().UnixNano())
+ 
+-	sub.Execute()
++	sub.RunClient(cfgFile)
+ }
+diff --git a/cmd/frpc/sub/root.go b/cmd/frpc/sub/root.go
+index bf86793..86cd1e6 100644
+--- a/cmd/frpc/sub/root.go
++++ b/cmd/frpc/sub/root.go
+@@ -105,7 +105,7 @@ var rootCmd = &cobra.Command{
+ 		}
+ 
+ 		// Do not show command usage here.
+-		err := runClient(cfgFile)
++		err := RunClient(cfgFile)
+ 		if err != nil {
+ 			fmt.Println(err)
+ 			os.Exit(1)
+@@ -182,7 +182,7 @@ func parseClientCommonCfgFromCmd() (cfg config.ClientCommonConf, err error) {
+ 	return
+ }
+ 
+-func runClient(cfgFilePath string) (err error) {
++func RunClient(cfgFilePath string) (err error) {
+ 	var content []byte
+ 	content, err = config.GetRenderedConfFromFile(cfgFilePath)
+ 	if err != nil {
+-- 
+2.30.0.windows.2
+
