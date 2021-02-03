@@ -59,7 +59,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p build && cd build
-          gomobile bind -v -target=android ./cmd/frpc
+          gomobile bind -v -target=android ../cmd/frpc
           ls
           cd -
       
