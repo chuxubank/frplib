@@ -23,10 +23,18 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
+      - name: Checkout frp
         uses: actions/checkout@v2
         with:
           repository: fatedier/frp
+      
+      - name: Checkout patches
+        uses: actions/checkout@v2
+        with:
+          path: patches
+          
+      - name: Apply patch
+        run: git am patches/frpc-gomobile.patch
 
       - name: Setup Go environment
         uses: actions/setup-go@v2
