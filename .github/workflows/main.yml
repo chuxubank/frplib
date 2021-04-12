@@ -64,11 +64,13 @@ jobs:
           gomobile bind -v -target=android ../cmd/frpc
           ls
           cd -
+      
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
 
-      - name: Upload Release Assets
-        id: upload-release-assets
-        uses: alexellis/upload-assets@0.2.3
+      - name: Publish package
+        run: gradle publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          asset_paths: '["./build/*"]'
