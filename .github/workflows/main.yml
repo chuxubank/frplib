@@ -40,7 +40,9 @@ jobs:
           git config user.email github-actions@github.com
           
       - name: Apply patch
-        run: git am patches/frpc-gomobile.patch
+        run: |
+          git am patches/frpc-gomobile.patch
+          git diff HEAD
 
       - name: Cache
         uses: actions/cache@v2
@@ -60,12 +62,12 @@ jobs:
       
       - name: Build
         run: |
-          mkdir -p build && cd build
+          cd patches
           gomobile bind -v -target=android ../cmd/frpc
           ls
-          cd -
       
-      - uses: actions/setup-java@v2
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
