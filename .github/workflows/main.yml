@@ -6,8 +6,8 @@ name: Build frpclib with gomobile
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches:
+      - main
   pull_request:
     branches: [ main ]
 
@@ -62,9 +62,8 @@ jobs:
       
       - name: Build
         run: |
-          cd patches
+          mkdir -p build && cd build
           gomobile bind -v -target=android ../cmd/frpc
-          ls
       
       - name: Setup Java JDK
         uses: actions/setup-java@v2
@@ -73,6 +72,6 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish package
-        run: gradle publish
+        run: cd build && ls && gradle publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
