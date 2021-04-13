@@ -7,9 +7,11 @@ publishing {
         create<MavenPublication>("maven") {
             artifactId = "frpclib"
             groupId = "top.chuxubank.frp"
-            version = "1.1"
+            version = "0.36.2"
             artifact("frpclib.aar")
-            artifact("frpclib-sources.jar")
+            artifact("frpclib-sources.jar") {
+                classifier = 'sources'
+            }
         }
     }
     repositories {
