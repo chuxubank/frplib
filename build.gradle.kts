@@ -3,6 +3,15 @@ plugins {
 }
 
 publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = "frpclib"
+            groupId = "top.chuxubank.frp"
+            version = "1.1"
+            artifact("frpclib.aar")
+            artifact("frpclib-sources.jar")
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
