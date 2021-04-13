@@ -58,7 +58,9 @@ jobs:
         uses: actions/setup-go@v2
         
       - name: Get gomobile
-        run: go get golang.org/x/mobile/cmd/gomobile && ~/go/bin/gomobile init
+        run: |
+          go get golang.org/x/mobile/cmd/gomobile
+          ~/go/bin/gomobile init
       
       - name: Build
         run: |
