@@ -58,12 +58,12 @@ jobs:
         uses: actions/setup-go@v2
         
       - name: Get gomobile
-        run: go get golang.org/x/mobile/cmd/gomobile && gomobile init
+        run: go get golang.org/x/mobile/cmd/gomobile && ~/go/bin/gomobile init
       
       - name: Build
         run: |
           mkdir -p build && cd build
-          gomobile bind -v -target=android ../cmd/frpc
+          ~/go/bin/gomobile bind -v -target=android ../cmd/frpc
       
       - name: Setup Java JDK
         uses: actions/setup-java@v2
