@@ -72,6 +72,9 @@ jobs:
           distribution: 'adopt'
 
       - name: Publish package
-        run: cd build && ls && gradle publish
+        run: |
+          cp build.gradle.kts build
+          cd build
+          gradle publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
