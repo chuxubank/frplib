@@ -42,7 +42,9 @@ jobs:
       - name: Apply patch
         run: |
           git am patches/frpc-gomobile.patch
-          git diff HEAD
+          git status
+          git log
+          git diff HEAD^
 
       - name: Cache
         uses: actions/cache@v2
@@ -54,11 +56,9 @@ jobs:
       
       - name: Setup Go environment
         uses: actions/setup-go@v2
-        with:
-          go-version: 1.15
         
       - name: Get gomobile
-        run: go get golang.org/x/mobile/cmd/gomobile && gomobile init
+        run: go get golang.org/x/mobile/cmd/gomobile
       
       - name: Build
         run: |
