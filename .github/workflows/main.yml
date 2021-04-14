@@ -46,6 +46,14 @@ jobs:
           git log
           git diff HEAD^
 
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
       - name: Setup Go environment
         uses: actions/setup-go@v2
 
@@ -53,13 +61,12 @@ jobs:
         run: |
           go env -w GO111MODULE=auto
           go get golang.org/x/mobile/cmd/gomobile
-          echo "$HOME/go/bin" >> $GITHUB_PATH
-          gomobile init
+          ~/go/bin/gomobile init
 
       - name: Build
         run: |
           mkdir -p build && cd build
-          gomobile bind -v -target=android ../cmd/frpc
+          ~/go/bin/gomobile bind -v -target=android ../cmd/frpc
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2
