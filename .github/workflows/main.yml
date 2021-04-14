@@ -9,7 +9,7 @@ on:
     branches:
       - main
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,23 +23,22 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout frp
         uses: actions/checkout@v2
         with:
           repository: fatedier/frp
-      
+
       - name: Checkout patches
         uses: actions/checkout@v2
         with:
           path: patches
-          
+
       - name: Config git
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          
+
       - name: Apply patch
         run: |
           git am patches/frpc-gomobile.patch
@@ -54,27 +53,27 @@ jobs:
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      
+
       - name: Setup Go environment
         uses: actions/setup-go@v2
-        
+
       - name: Get gomobile
         run: |
           go env -w GO111MODULE=auto
           go get golang.org/x/mobile/cmd/gomobile
           echo "$HOME/go/bin" >> $GITHUB_PATH
           gomobile init
-      
+
       - name: Build
         run: |
           mkdir -p build && cd build
           gomobile bind -v -target=android ../cmd/frpc
-      
+
       - name: Setup Java JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          java-version: "11"
+          distribution: "adopt"
 
       - name: Publish package
         run: |
