@@ -59,14 +59,16 @@ jobs:
 
       - name: Get gomobile
         run: |
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+          echo "$PATH"
           go env -w GO111MODULE=auto
           go get golang.org/x/mobile/cmd/gomobile
-          ~/go/bin/gomobile init
+          gomobile init
 
       - name: Build
         run: |
           mkdir -p build && cd build
-          ~/go/bin/gomobile bind -v -target=android ../cmd/frpc
+          gomobile bind -v -target=android ../cmd/frpc
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2
