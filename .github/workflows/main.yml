@@ -23,6 +23,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout frp
         uses: actions/checkout@v2
@@ -59,13 +60,14 @@ jobs:
         
       - name: Get gomobile
         run: |
+          go env -w GO111MODULE=auto
           go get golang.org/x/mobile/cmd/gomobile
-          ~/go/bin/gomobile init
+          gomobile init
       
       - name: Build
         run: |
           mkdir -p build && cd build
-          ~/go/bin/gomobile bind -v -target=android ../cmd/frpc
+          gomobile bind -v -target=android ../cmd/frpc
       
       - name: Setup Java JDK
         uses: actions/setup-java@v2
