@@ -56,11 +56,11 @@ jobs:
 
       - name: Setup Go environment
         uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
 
       - name: Get gomobile
         run: |
-          echo "$HOME/go/bin" >> $GITHUB_PATH
-          echo "$PATH"
           go env -w GO111MODULE=auto
           go get golang.org/x/mobile/cmd/gomobile
           gomobile init
