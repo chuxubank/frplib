@@ -1,17 +1,21 @@
 plugins {
     `maven-publish`
+    `java`
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
+            from(components["java"])
             artifactId = "frpclib"
             groupId = "top.chuxubank.frp"
             version = "0.36.2"
             artifact("frpclib.aar")
-            artifact("frpclib-sources.jar") {
-                classifier = 'sources'
-            }
         }
     }
     repositories {
