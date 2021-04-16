@@ -1,21 +1,15 @@
 plugins {
     `maven-publish`
-    `java`
-}
-
-java {
-    withSourcesJar()
-    withJavadocJar()
+    `com.android.library`
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["java"])
-            artifactId = "frpclib"
+            from(components["release"])
             groupId = "top.chuxubank.frp"
+            artifactId = "frpclib"
             version = "0.36.2"
-            artifact("frpclib.aar")
         }
     }
     repositories {
